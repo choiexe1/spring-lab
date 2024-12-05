@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head(~{::title})}">
+    <!--  타이틀 설정 필수  -->
+    <title th:text="#{nav.features}"></title>
+</head>
+<body>
+    <nav th:replace="~{fragments/nav}"></nav>
+
+    <main th:with="userSession=${session.get('sid')}">
+        <section class="flex flex-col gap-4">
+            <h1 th:text="#{nav.features}">기능 살펴보기</h1>
+            <p th:text="#{features.description1}"></p>
+            <p th:text="#{features.description2}"></p>
+            <p>
+                <span class="code">user = Grade.USER</span>
+                <span class="code">manager = Grade.MANAGER</span>
+                <span class="code">test = Grade.ADMIN</span>
+            </p>
+        </section>
+        <section th:if="${userSession == null}">
+            <p th:text="#{features.not.user}" class="font-bold">비 회원 기능</p>
+            <ul class="list">
+                <li><a th:href="@{/auth/register}" th:text="#{nav.register}">회원가입</a></li>
+                <li><a th:href="@{/auth/login}" th:text="#{nav.login}">로그인</a></li>
+            </ul>
+        </section>
+        <section th:if="${userSession != null}" th:with="grade=${userSession.grade}">
+            <ul class="list flex flex-col gap-4">
+                <div th:if="${grade.level > 0}">
+                    <p th:text="#{features.user}">회원 기능</p>
+                    <li><a th:href="@{/users/{id}(id=${userSession.id})}" th:text="#{nav.user.myInfo}">내 정보 조회</a></li>
+                </div>
+                <div th:if="${grade.level > 1}">
+                    <p th:text="#{features.manager}">매니저 기능</p>
+                    <li><a th:href="@{/items}" th:text="#{nav.item.manage}">모든 아이템 관리</a></li>
+                </div>
+                <div th:if="${grade.level > 2}">
+                    <p th:text="#{features.admin}">어드민 기능</p>
+                    <li><a th:href="@{/actions}" th:text="#{nav.action.view}">모든 행동 로그 조회</a></li>
+                    <li>
+                        <a th:href="@{/users}"
+                           th:text="#{nav.user.viewAll}">모든
+                            회원 관리</a>
+                    </li>
+                </div>
+            </ul>
+        </section>
+    </main>
+
+
+    <nav th:replace="~{fragments/footer}"></nav>
+</body>
+</html>

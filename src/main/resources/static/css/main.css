@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply text-white bg-black min-h-screen font-mono p-10 leading-relaxed tracking-wide
+    }
+
+    main {
+        @apply text-sm my-8
+    }
+
+    main > section {
+        @apply my-4
+    }
+
+    h1 {
+        @apply text-4xl mb-4 font-medium
+    }
+
+    ul > li > a {
+        @apply link
+    }
+
+    nav > ul {
+        @apply my-2 flex gap-2
+    }
+
+    nav > h1 {
+        @apply text-3xl link font-extrabold w-fit
+    }
+
+    nav > .welcome {
+        @apply text-xs w-fit
+    }
+
+    nav > ul > li > a {
+        @apply link text-sm before:content-['['] after:content-[']'] cursor-pointer;
+    }
+
+    nav > ul > form > button {
+        @apply link text-sm before:content-['['] after:content-[']'] cursor-pointer;
+    }
+
+    form > div > p {
+        @apply error
+    }
+
+}
+
+@layer components {
+    .table {
+        @apply min-w-full table-auto;
+    }
+
+    .table th, .table td {
+        @apply py-2 px-4 border;
+    }
+
+    .table thead tr {
+        @apply text-left
+    }
+
+    .table .actions {
+        @apply flex justify-center items-center gap-4;
+    }
+
+    .table .action-add td {
+        @apply py-2 px-4 border text-center bg-black;
+    }
+
+    .table .actions a {
+        @apply btn
+    }
+
+    .table .actions form button {
+        @apply btn
+    }
+
+    .table .action-add td a {
+        @apply block w-full;
+    }
+
+    .table .action-add td:hover {
+        @apply hover:bg-gray-400 transition-all duration-200
+    }
+
+    .btn {
+        @apply py-1 px-2 rounded-md border border-gray-400 hover:bg-gray-500 hover:text-white transition-all duration-200 inline-block cursor-pointer
+    }
+
+    .code {
+        @apply bg-gray-600 p-1 mx-0.5 text-xs select-none
+    }
+
+    .error {
+        @apply text-red-500 text-xs my-2
+    }
+
+    .error-border {
+        @apply border border-red-500
+    }
+
+    .gray {
+        @apply text-gray-100
+    }
+
+    .link {
+        @apply hover:text-gray-400 transition-all duration-200
+    }
+
+    .list {
+        @apply list-inside list-disc my-4 ml-4
+    }
+
+    .form {
+        @apply w-fit border border-gray-100 p-4 rounded
+    }
+
+    .form > div > label {
+        @apply inline-block py-2 w-fit
+    }
+
+    .form > div > span {
+        @apply error
+    }
+
+    .form > div > input {
+        @apply bg-transparent border border-white block pl-2
+    }
+
+    .form > button[type="submit"] {
+        @apply mt-4 btn
+    }
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html th:fragment="header(title)" lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<body th:with="userSession=${session.get('sid')}">
+    <nav class="bg-black text-white py-4 px-6">
+        <h1 class="text-xl font-bold">
+            <a href="/" th:text="#{title}" class="hover:text-gray-400">Portfolio</a>
+        </h1>
+        <ul class="mt-4">
+            <li class="nav_item mb-2">
+                <a href="/" th:href="@{/features}" th:text="#{features}" class="hover:text-gray-400">기능 알아보기</a>
+            </li>
+            <li class="nav_item mb-2" th:if="${userSession != null}">
+                <a href="/" onclick="logout()" th:text="#{nav.logout}" class="hover:text-gray-400">로그아웃</a>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<nav class="nav" th:fragment="nav" th:with="userSession=${session.get('sid')}">
+    <h1><a th:text="#{nav.title}" href="/">제이의 스프링 연구소</a></h1>
+
+    <p class="welcome" th:if="${userSession != null}">
+        <span th:text="#{hello(${userSession.getUsername()})}"></span>
+    </p>
+
+    <ul class="">
+        <li><a th:href="@{/features}" th:text="#{nav.features}">기능 살펴보기</a></li>
+        <li th:if="${userSession == null}"><a th:text="#{nav.login}" th:href="@{/auth/login}">로그인</a></li>
+
+        <form th:if="${userSession != null}" th:action="@{/auth/logout}" th:method="post">
+            <button type="submit" class="" th:text="#{nav.logout}"></button>
+        </form>
+    </ul>
+
+</nav>

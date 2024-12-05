@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head(~{::title})}">
+    <!--  타이틀 설정 필수  -->
+    <title th:text="#{nav.action.view}"></title>
+</head>
+<body>
+    <nav th:replace="~{fragments/nav}"></nav>
+
+
+    <main>
+        <h1 th:text="#{nav.action.view}"></h1>
+        <section class="flex flex-col gap-4">
+            <p>특정 경로를 통한 요청을 저장하고, 조회하는 기능입니다. 인터셉터를 통해 구현되었습니다.</p>
+            <p>이런 기능은 어떻게 구현해야 할지 고민하다가, 인터셉터의 <span class="code">HandlerMethod</span>를 사용 했습니다.</p>
+            <p><span class="code">HandlerMethod</span>를 통해 컨트롤러 정보와 메소드 이름을 가져와서 저장합니다. 단순한 구조입니다.</p>
+            <p>일단은 학습용이라 주로 메모리를 저장소로 사용하고 있습니다. 인터페이스로 <span class="code">ActionRepository</span>를 정의해놓았기 때문에 실제
+                데이터베이스를 사용하여 개발할 때는 해당 인터페이스를 구현하기만 하면 됩니다.</p>
+            <p>지금 사용중인 <span class="code">MemoryActionRepository</span>의 내부 저장소는 <span class="code">ArrayDeque</span>로
+                구현되어
+                있고, <span class="code">5</span>개의 로그가 넘어가면 가장 첫 번째로 입력된 로그를 제거하고 로그를 추가합니다. <span class="code">First In First Out</span>
+                구조의 자료구조입니다.</p>
+        </section>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th th:text="#{label.action.controller}">핸들러</th>
+                <th th:text="#{label.action.methodName}">행위</th>
+                <th th:text="#{label.action.user}">계정명</th>
+                <th th:text="#{label.action.time}">실행 시간</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:if="${actions.size() > 0}" th:each="action, stat : ${actions}">
+                <td th:text="${stat.count}"></td>
+                <td th:text="${action.controllerName}"></td>
+                <td th:text="${action.methodName}"></td>
+                <td><a th:href="@{/users/{id}(id=${action.getUserId()})}" th:text="${action.username}" class="btn"></a>
+                </td>
+                <td th:text="${#temporals.format(action.time,'yyyy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+
+            <tr th:unless="${actions.size() > 0}">
+                <td colspan="5" th:text="#{message.action.noActions}" class="text-center text-xl code"></td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+
+
+    <nav th:replace="~{fragments/footer}"></nav>
+</body>
+</html>

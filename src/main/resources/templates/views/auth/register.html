@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head(~{::title})}">
+    <!--  타이틀 설정 필수  -->
+    <title th:text="#{nav.register}"></title>
+</head>
+<body>
+    <nav th:replace="~{fragments/nav}"></nav>
+
+
+    <main>
+        <h1 th:text="#{nav.register}"></h1>
+        <section class="flex flex-col gap-4">
+            <p>회원가입 페이지에서는 HTML Form 처리를 위한 커맨드 객체를 모델로 전달 받습니다. HTML Form 제출 시 커맨드 객체는 같은 경로의 POST로 전송됩니다. POST 메서드를
+                처리하는 컨트롤러가 폼을 전달 받으면, 빈 검증기(Bean Validation)로 입력 값 검증을 진행합니다. 입력 값 검증에 실패하면 컨트롤러 인자 중 하나인 <span
+                        class="code">BindingResult</span>에
+                담기게 됩니다.</p>
+
+            <p><span class="code">POST /login</span> 요청을 처리하는 컨트롤러는 <span class="code">BindingResult</span>에 에러가 있으면 에러
+                정보를 담아서 현재 페이지로 다시 보냅니다.
+                해당 에러 정보를 필요에 따라 Thymeleaf로
+                출력 합니다.</p>
+            <p>현재 회원가입 검증은 동일한 계정명(Username)의 회원이 이미 존재하는지의 여부와 빈 값인지만 검증하고 있습니다.</p>
+            <p>참고로 <span class="code">@PostConstruct</span>
+                어노테이션을 통해 계정명 <span class="code">test</span>, 비밀번호 <span class="code">test</span> 인 유저를 재시작 시 생성하고
+                있습니다. 편하게 사용하세요.</p>
+        </section>
+
+        <form th:action class="form" th:object="${createForm}" th:method="post">
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p
+                        th:each="err : ${#fields.globalErrors()}"
+                        th:text="${err}">
+                </p>
+            </div>
+            <div>
+                <label for="name" th:text="#{label.user.name}"></label>
+                <span th:errors="*{name}"></span>
+                <input type="text" id="name" th:field="*{name}">
+            </div>
+            <div>
+                <label for="username" th:text="#{label.user.username}"></label>
+                <span th:errors="*{username}"></span>
+                <input type="text" id="username" th:field="*{username}">
+            </div>
+            <div>
+                <label for="password" th:text="#{label.user.password}"></label>
+                <span th:errors="*{password}"></span>
+                <input type="password" id="password" th:field="*{password}">
+            </div>
+            <button type="submit" th:text="#{button.submit}"></button>
+        </form>
+    </main>
+
+
+    <nav th:replace="~{fragments/footer}"></nav>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head(~{::title})}">
+    <!--  타이틀 설정 필수  -->
+    <title th:text="#{nav.user.view}"></title>
+</head>
+<body>
+    <nav th:replace="~{fragments/nav}"></nav>
+
+
+    <main>
+        <h1 th:text="#{nav.user.view}"></h1>
+        <form th:action class="form" th:object="${user}" th:method="post">
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p
+                        th:each="err : ${#fields.globalErrors()}"
+                        th:text="${err}">
+                </p>
+            </div>
+            <div>
+                <label for="id">ID</label>
+                <span th:errors="*{id}"></span>
+                <input type="text" id="id" th:field="*{id}" disabled>
+            </div>
+            <div>
+                <label for="name" th:text="#{label.user.name}"></label>
+                <span th:errors="*{name}"></span>
+                <input type="text" id="name" th:field="*{name}" disabled>
+            </div>
+            <div>
+                <label for="username" th:text="#{label.user.username}"></label>
+                <span th:errors="*{username}"></span>
+                <input type="text" id="username" th:field="*{username}" disabled>
+            </div>
+            <div>
+                <label for="grade" th:text="#{label.user.grade}"></label>
+                <span th:errors="*{grade}"></span>
+                <input type="text" id="grade" th:field="*{grade}" disabled>
+            </div>
+            <div>
+                <label for="createdAt" th:text="#{label.user.createdAt}"></label>
+                <span th:errors="*{createdAt}"></span>
+                <input type="text" id="createdAt" th:field="*{createdAt}" disabled>
+                <b class="block" th:field="*{createdAt}"></b>
+            </div>
+            <button type="submit" th:text="#{button.submit}"></button>
+        </form>
+    </main>
+
+
+    <nav th:replace="~{fragments/footer}"></nav>
+</body>
+</html>

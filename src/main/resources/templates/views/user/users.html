@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head(~{::title})}">
+    <!--  타이틀 설정 필수  -->
+    <title th:text="#{nav.user.viewAll}"></title>
+</head>
+<body>
+    <nav th:replace="~{fragments/nav}"></nav>
+
+    <main>
+        <h1 th:text="#{nav.user.viewAll}"></h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th th:text="#{label.user.username}">계정명</th>
+                <th th:text="#{label.user.name}">이름</th>
+                <th th:text="#{label.user.grade}">등급</th>
+                <th th:text="#{label.user.createdAt}">가입일</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="user, stat : ${users}">
+                <td th:text="${user.id}"></td>
+                <td>
+                    <a th:href="@{/users/{id}(id=${user.id})}" th:text="${user.username}" class="btn"></a>
+                </td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.grade}"></td>
+                <td th:text="${#temporals.format(user.createdAt,'yyyy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+
+
+    <nav th:replace="~{fragments/footer}"></nav>
+</body>
+</html>

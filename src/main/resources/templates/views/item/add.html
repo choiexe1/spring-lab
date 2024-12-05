@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head(~{::title})}">
+    <!--  타이틀 설정 필수  -->
+    <title th:text="#{nav.item.add}"></title>
+</head>
+<body>
+    <nav th:replace="~{fragments/nav}"></nav>
+
+    <main>
+        <h1 th:text="#{nav.item.add}"></h1>
+        <form th:action class="form" th:object="${item}" th:method="post">
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p
+                        th:each="err : ${#fields.globalErrors()}"
+                        th:text="${err}">
+                </p>
+            </div>
+            <div>
+                <label for="name" th:text="#{label.item.name}"></label>
+                <span th:errors="*{name}"></span>
+                <input type="text" id="name" th:field="*{name}">
+            </div>
+            <div>
+                <label for="price" th:text="#{label.item.price}"></label>
+                <span th:errors="*{price}"></span>
+                <input type="text" id="price" th:field="*{price}">
+            </div>
+            <div>
+                <label for="quantity" th:text="#{label.item.quantity}"></label>
+                <span th:errors="*{quantity}"></span>
+                <input type="text" id="quantity" th:field="*{quantity}">
+            </div>
+            <button type="submit" th:text="#{button.submit}"></button>
+        </form>
+    </main>
+
+
+    <nav th:replace="~{fragments/footer}"></nav>
+</body>
+</html>

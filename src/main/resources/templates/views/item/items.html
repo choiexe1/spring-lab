@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head(~{::title})}">
+    <!--  타이틀 설정 필수  -->
+    <title th:text="#{nav.item.manage}"></title>
+</head>
+<body>
+    <nav th:replace="~{fragments/nav}"></nav>
+
+
+    <main>
+        <h1 th:text="#{nav.item.manage}"></h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th th:text="#{label.item.name}">이름</th>
+                <th th:text="#{label.item.price}">가격</th>
+                <th th:text="#{label.item.quantity}">수량</th>
+                <th th:text="#{label.button.actions}">작업</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:if="${items.size() > 0}" th:each="item : ${items}">
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.price}"></td>
+                <td th:text="${item.quantity}"></td>
+                <td class="actions">
+                    <a th:href="@{/items/edit/{itemId}(itemId=${item.id})}" th:text="#{button.edit}">수정</a>
+                    <form th:action="@{/items/delete/{itemId}(itemId=${item.id})}" method="post">
+                        <button type="submit" th:text="#{button.delete}">삭제</button>
+                    </form>
+                </td>
+            </tr>
+
+            <tr th:unless="${items.size() > 0}">
+                <td colspan="4" th:text="#{message.item.noItem}" class="text-center text-xl code">아이템이 없습니다.
+                </td>
+            </tr>
+
+            <tr class="action-add">
+                <td colspan="4">
+                    <a th:text="#{button.add}" th:href="@{/items/add}">추가</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+
+
+    <nav th:replace="~{fragments/footer}"></nav>
+</body>
+</html>
