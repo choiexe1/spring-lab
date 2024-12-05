@@ -1,1 +1,5 @@
-README.md
+- Spring MVC
+- Thymeleaf
+- TailwindCSS
+- HTML5
+- CSS3
