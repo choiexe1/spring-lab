@@ -12,11 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ItemRepositoryTest {
     @Autowired
-    private MemoryItemRepository memoryItemRepository;
+    private ItemRepository itemRepository;
 
     @AfterEach
     void afterEach() {
-        memoryItemRepository.clearStore();
+        if (itemRepository instanceof MemoryItemRepository memoryItemRepository) {
+            memoryItemRepository.clearStore();
+        }
     }
 
     @Test
@@ -25,7 +27,7 @@ class ItemRepositoryTest {
         Item item = createItem("itemA");
 
         // WHEN
-        Item savedItem = memoryItemRepository.save(item);
+        Item savedItem = itemRepository.save(item);
 
         // THEN
         assertThat(savedItem.getName()).isEqualTo(item.getName());
@@ -38,11 +40,11 @@ class ItemRepositoryTest {
         Item itemACopy = createItem("itemA");
 
         // WHEN
-        memoryItemRepository.save(itemA);
+        itemRepository.save(itemA);
 
         // THEN
         assertThrows(IllegalStateException.class, () -> {
-            memoryItemRepository.save(itemACopy);
+            itemRepository.save(itemACopy);
         });
     }
 
@@ -51,10 +53,10 @@ class ItemRepositoryTest {
     void findOneById() {
         // GIVEN
         Item item = createItem("itemA");
-        memoryItemRepository.save(item);
+        itemRepository.save(item);
 
         // WHEN
-        Item findItem = memoryItemRepository.findOneById(1L);
+        Item findItem = itemRepository.findOneById(1L);
 
         // THEN
         assertThat(findItem.getName()).isEqualTo(item.getName());
@@ -64,10 +66,10 @@ class ItemRepositoryTest {
     void findOneByItemName() {
         // GIVEN
         Item item = createItem("itemA");
-        memoryItemRepository.save(item);
+        itemRepository.save(item);
 
         // WHEN
-        Item findItem = memoryItemRepository.findOneByItemName(item.getName());
+        Item findItem = itemRepository.findOneByItemName(item.getName());
 
         // THEN
         assertThat(findItem.getName()).isEqualTo(item.getName());
@@ -78,11 +80,11 @@ class ItemRepositoryTest {
         // GIVEN
         Item itemA = createItem("itemA");
         Item itemB = createItem("itemB");
-        memoryItemRepository.save(itemA);
-        memoryItemRepository.save(itemB);
+        itemRepository.save(itemA);
+        itemRepository.save(itemB);
 
         // WHEN
-        List<Item> items = memoryItemRepository.findAll();
+        List<Item> items = itemRepository.findAll();
 
         // THEN
         assertThat(items.size()).isEqualTo(2);

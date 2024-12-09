@@ -8,13 +8,18 @@
 
 
     <main th:with="userSession=${session.get('sid')}">
-        <section th:if="${userSession == null}">
+        <section>
             <h1 th:text="#{home.introduce}">소개</h1>
             <p class="mb-4" th:text="#{home.description1}"></p>
             <p class="mb-4" th:text="#{home.description2}"></p>
             <p th:text="#{home.description3}"></p>
         </section>
-        <section th:if="${userSession != null}" class="flex flex-col gap-4">
+        <hr class="w-1/2">
+        <section class="flex flex-col gap-4">
+            <div><h1>깃허브</h1>
+                <p>현재 프로젝트 깃허브 주소는 <a th:href="#{github}" class="btn" target="_blank">여기</a> 를 클릭해서 확인 할 수 있습니다. 제 개인
+                    블로그 방문은 화면 하단의 푸터를 이용해주세요.</p>
+            </div>
             <div><h1>인터셉터</h1>
                 <p>인터셉터를 이용해 사용자의 요청이 요청 권한이 있는지 세션을 통해 필터링 합니다.</p></div>
             <div><h1>스프링 부트와 타임리프 통합</h1>

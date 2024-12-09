@@ -26,7 +26,8 @@
             <tr>
                 <th>#</th>
                 <th th:text="#{label.action.controller}">핸들러</th>
-                <th th:text="#{label.action.methodName}">행위</th>
+                <th th:text="#{label.action.uri}">경로</th>
+                <th th:text="#{label.action.params}">요청 파라미터</th>
                 <th th:text="#{label.action.user}">계정명</th>
                 <th th:text="#{label.action.time}">실행 시간</th>
             </tr>
@@ -35,15 +36,16 @@
 
             <tr th:if="${actions.size() > 0}" th:each="action, stat : ${actions}">
                 <td th:text="${stat.count}"></td>
-                <td th:text="${action.controllerName}"></td>
-                <td th:text="${action.methodName}"></td>
+                <td th:text="${action.controller}"></td>
+                <td th:text="${action.requestMethod +' '+action.requestURI}"></td>
+                <td th:text="${action.params}"></td>
                 <td><a th:href="@{/users/{id}(id=${action.getUserId()})}" th:text="${action.username}" class="btn"></a>
                 </td>
-                <td th:text="${#temporals.format(action.time,'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${{action.time}}"></td>
             </tr>
 
             <tr th:unless="${actions.size() > 0}">
-                <td colspan="5" th:text="#{message.action.noActions}" class="text-center text-xl code"></td>
+                <td colspan="6" th:text="#{message.action.noActions}" class="text-center text-xl code"></td>
             </tr>
             </tbody>
         </table>

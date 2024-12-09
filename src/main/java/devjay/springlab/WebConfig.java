@@ -33,7 +33,7 @@ public class WebConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(actionHandleInterceptor)
                 .order(3)
-                .addPathPatterns("/items/**");
+                .addPathPatterns("/items/**", "/users/**");
     }
 
     @Override

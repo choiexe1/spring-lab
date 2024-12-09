@@ -23,4 +23,8 @@ public class MemoryActionRepository implements ActionRepository {
     public List<Action> findAll() {
         return new ArrayList<>(store);
     }
+
+    void clearStore() {
+        store.clear();
+    }
 }

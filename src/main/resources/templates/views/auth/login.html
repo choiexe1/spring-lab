@@ -8,7 +8,7 @@
     <nav th:replace="~{fragments/nav}"></nav>
 
     <main>
-        <h1>로그인</h1>
+        <h1 th:text="#{nav.login}">로그인</h1>
         <section class="flex flex-col gap-4">
             <p>로그인 페이지에서는 계정명이 유효한지의 여부, 유효한 계정의 패스워드와 일치하는 지의 여부를 확인합니다.</p>
             <p>로그인 시도 중 패스워드나 계정명이 일치하지 않을 경우 <span class="code">bindingResult.rejectValue("password",
