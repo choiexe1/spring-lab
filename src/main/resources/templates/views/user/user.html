@@ -6,8 +6,7 @@
 </head>
 <body>
     <nav th:replace="~{fragments/nav}"></nav>
-
-
+    
     <main>
         <h1 th:text="#{nav.user.view}"></h1>
         <form th:action class="form" th:object="${user}" th:method="post">
@@ -43,7 +42,7 @@
                 <input type="text" id="createdAt" th:field="*{createdAt}" disabled>
                 <b class="block" th:field="*{createdAt}"></b>
             </div>
-            <button type="submit" th:text="#{button.submit}"></button>
+            <button type="submit" th:text="#{button.submit}" disabled></button>
         </form>
     </main>
 

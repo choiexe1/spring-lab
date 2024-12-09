@@ -692,6 +692,13 @@ form > div > p {
   color: rgb(239 68 68 / var(--tw-text-opacity, 1));
 }
 
+button:disabled {
+  background-color: #ccc;
+  opacity: 0.5;
+  cursor: not-allowed;
+  cursor: none
+}
+
 .table {
   min-width: 100%;
   table-layout: auto;
@@ -926,11 +933,6 @@ form > div > p {
   margin-bottom: 2rem;
 }
 
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -957,10 +959,6 @@ form > div > p {
 
 .table {
   display: table;
-}
-
-.h-10 {
-  height: 2.5rem;
 }
 
 .w-1\/2 {
