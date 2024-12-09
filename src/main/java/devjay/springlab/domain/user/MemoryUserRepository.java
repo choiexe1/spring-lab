@@ -1,5 +1,6 @@
 package devjay.springlab.domain.user;
 
+import devjay.springlab.domain.exception.UserExistException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class MemoryUserRepository implements UserRepository {
 
     private void validateExistUsername(User user) {
         if (findOneByUsername(user.getUsername()) != null) {
-            throw new IllegalStateException("이미 존재하는 유저네임입니다.");
+            throw new UserExistException();
         }
     }
 

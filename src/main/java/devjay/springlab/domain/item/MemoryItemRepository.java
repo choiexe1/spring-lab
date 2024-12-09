@@ -1,5 +1,6 @@
 package devjay.springlab.domain.item;
 
+import devjay.springlab.domain.exception.ItemNameExistException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class MemoryItemRepository implements ItemRepository {
 
     private void validateExistItemName(Item item) {
         if (findOneByItemName(item.getName()) != null) {
-            throw new IllegalStateException("이미 존재하는 아이템 이름입니다.");
+            throw new ItemNameExistException();
         }
     }
 

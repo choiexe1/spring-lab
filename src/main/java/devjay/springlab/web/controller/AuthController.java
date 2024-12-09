@@ -1,5 +1,6 @@
 package devjay.springlab.web.controller;
 
+import devjay.springlab.domain.exception.UserExistException;
 import devjay.springlab.domain.user.Grade;
 import devjay.springlab.domain.user.User;
 import devjay.springlab.domain.user.UserService;
@@ -42,8 +43,8 @@ public class AuthController {
 
         try {
             userService.register(user);
-        } catch (IllegalStateException e) {
-            bindingResult.reject("user.username.exist");
+        } catch (UserExistException e) {
+            bindingResult.reject(e.getErrorCode());
             return "views/auth/register";
         }
 
@@ -93,7 +94,6 @@ public class AuthController {
             try {
                 session.invalidate();
             } catch (IllegalStateException e) {
-                log.error("e", e);
                 return "redirect:/";
             }
         }

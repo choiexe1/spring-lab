@@ -3,6 +3,7 @@ package devjay.springlab.domain.item;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import devjay.springlab.domain.exception.ItemNameExistException;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +44,7 @@ class ItemRepositoryTest {
         itemRepository.save(itemA);
 
         // THEN
-        assertThrows(IllegalStateException.class, () -> {
+        assertThrows(ItemNameExistException.class, () -> {
             itemRepository.save(itemACopy);
         });
     }

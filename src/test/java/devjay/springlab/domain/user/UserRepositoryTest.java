@@ -3,6 +3,7 @@ package devjay.springlab.domain.user;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import devjay.springlab.domain.exception.UserExistException;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ class UserRepositoryTest {
         memoryUserRepository.save(userA);
 
         // THEN
-        assertThrows(IllegalStateException.class, () -> {
+        assertThrows(UserExistException.class, () -> {
             memoryUserRepository.save(userB);
         });
     }

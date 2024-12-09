@@ -1,5 +1,6 @@
 package devjay.springlab.web.controller;
 
+import devjay.springlab.domain.exception.ItemNameExistException;
 import devjay.springlab.domain.item.Item;
 import devjay.springlab.domain.item.ItemService;
 import devjay.springlab.web.form.item.ItemCreateForm;
@@ -46,8 +47,8 @@ public class ItemController {
         try {
             itemService.save(newItem);
 
-        } catch (IllegalStateException e) {
-            bindingResult.rejectValue("name", "items.name.exist");
+        } catch (ItemNameExistException e) {
+            bindingResult.rejectValue("name", e.getErrorCode());
             return "views/item/add";
         }
 
@@ -74,8 +75,8 @@ public class ItemController {
         Item updateItem = new Item(form.getName(), form.getPrice(), form.getQuantity());
         try {
             itemService.update(id, updateItem);
-        } catch (IllegalStateException e) {
-            bindingResult.rejectValue("name", "items.name.exist");
+        } catch (ItemNameExistException e) {
+            bindingResult.rejectValue("name", e.getErrorCode());
             return "views/item/edit";
         }
 
